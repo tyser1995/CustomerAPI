@@ -70,7 +70,7 @@ namespace CustomerAPI.Controllers
 
             // Handle ContactNumbers
             var contactNumbersToRemove = existingCustomer.ContactNumbers
-                .Where(cn => !customer.ContactNumbers.Any(c => c.Type == cn.Type && c.Number == cn.Number))
+                .Where(cn => !customer.ContactNumbers.Any(c => c.Id == cn.Id))
                 .ToList();
 
             foreach (var contactNumber in contactNumbersToRemove)
@@ -81,7 +81,7 @@ namespace CustomerAPI.Controllers
             foreach (var contactNumber in customer.ContactNumbers)
             {
                 var existingContactNumber = existingCustomer.ContactNumbers
-                    .FirstOrDefault(cn => cn.Type == contactNumber.Type && cn.Number == contactNumber.Number);
+                    .FirstOrDefault(cn => cn.Id == contactNumber.Id && cn.Type == contactNumber.Type && cn.Number == contactNumber.Number);
 
                 if (existingContactNumber != null)
                 {
@@ -95,7 +95,8 @@ namespace CustomerAPI.Controllers
 
             // Handle Addresses
             var addressesToRemove = existingCustomer.Addresses
-                .Where(a => !customer.Addresses.Any(a2 => a2.Barangay == a.Barangay && a2.City == a.City && a2.Province == a.Province))
+                .Where(a => !customer.Addresses.Any(
+                        a2 => a2.Id == a.Id))
                 .ToList();
 
             foreach (var address in addressesToRemove)
@@ -106,7 +107,7 @@ namespace CustomerAPI.Controllers
             foreach (var address in customer.Addresses)
             {
                 var existingAddress = existingCustomer.Addresses
-                    .FirstOrDefault(a => a.Barangay == address.Barangay && a.City == address.City && a.Province == address.Province);
+                    .FirstOrDefault(a => a.Id == address.Id && a.Barangay == address.Barangay && a.City == address.City && a.Province == address.Province);
 
                 if (existingAddress != null)
                 {

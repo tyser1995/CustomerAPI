@@ -17,6 +17,7 @@ namespace CustomerAPI.Data
                 .OwnsMany(c => c.ContactNumbers, cb =>
                 {
                     cb.WithOwner().HasForeignKey("CustomerId");
+                    cb.Property(p => p.Id);
                     cb.Property(p => p.Type).HasMaxLength(20);
                     cb.Property(p => p.Number).HasMaxLength(20);
                 });
@@ -25,6 +26,7 @@ namespace CustomerAPI.Data
                 .OwnsMany(c => c.Addresses, ab =>
                 {
                     ab.WithOwner().HasForeignKey("CustomerId");
+                    ab.Property(p => p.Id);
                     ab.Property(p => p.Barangay).HasMaxLength(50);
                     ab.Property(p => p.City).HasMaxLength(50);
                     ab.Property(p => p.Province).HasMaxLength(50);
